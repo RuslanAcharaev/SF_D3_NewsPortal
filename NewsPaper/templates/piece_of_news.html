@@ -1,0 +1,36 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %}
+
+<!-- подключаем фильтры -->
+{% load custom_filters %}
+
+<!-- Название у нас будет Product -->
+{% block title %}
+Новость
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
+{% block content %}
+<h3>{{ post.title|censor }}</h3>
+{{ post.text|censor }}
+<p><em>Дата публикации: {{ post.dateCreation|date:'d M Y' }}</em></p>
+Автор
+{% if post.categoryType == 'AR' %}
+    статьи
+{% else %}
+    новости
+{% endif %}
+: {{ post.author }}.
+Текущий рейтинг
+{% if post.categoryType == 'AR' %}
+    статьи
+{% else %}
+    новости
+{% endif %}
+: {{ post.rating }}
+<p>Категории:
+    {% for cat in post.postCategory.all %}
+	    <td>{{ cat.name }}</td>
+    {% endfor %}</p>
+
+{% endblock content %}
