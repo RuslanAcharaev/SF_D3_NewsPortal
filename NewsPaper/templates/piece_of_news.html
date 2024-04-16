@@ -33,4 +33,9 @@
 	    <td>{{ cat.name }}</td>
     {% endfor %}</p>
 
+<p>
+    <a href="{% url 'news_update' pk=post.pk %}">Редактировать</a>
+    <a href="{% url 'news_delete' pk=post.pk %}">Удалить</a>
+</p>
+
 {% endblock content %}
