@@ -34,8 +34,12 @@
     {% endfor %}</p>
 
 <p>
+    {% if perms.NewsPortal.change_post and post.author.authorUser == request.user %}
     <a href="{% url 'news_update' pk=post.pk %}">Редактировать</a>
+    {% endif %}
+    {% if perms.NewsPortal.delete_post and post.author.authorUser == request.user %}
     <a href="{% url 'news_delete' pk=post.pk %}">Удалить</a>
+    {% endif %}
 </p>
 
 {% endblock content %}
