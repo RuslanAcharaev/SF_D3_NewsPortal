@@ -24,6 +24,10 @@
                 <td><span style="text-decoration: underline;">Заголовок</span></td>
                 <td><span style="text-decoration: underline;">Дата публикации</span></td>
                 <td><span style="text-decoration: underline;">Текст</span></td>
+
+                {% if perms.NewsPortal.change_post or perms.NewsPortal.delete_post %}
+                <td><span style="text-decoration: underline;">Действия</span></td>
+                {% endif %}
             </tr>
 
             {% for post in posts %}
@@ -34,6 +38,17 @@
                 чтобы ограничить количество символов до 20.
                 Все остальные символы превратятся в многоточие. -->
                 <td>{{ post.text|truncatechars:20|censor }}<a href="{% url 'post_detail' pk=post.id %}">Читать далее</a></td>
+                <!-- Проверяем авторство и дополнительно доступ для каждой ссылки отдельно -->
+                <td>
+                    {% if post.author.authorUser == request.user %}
+                        {% if perms.NewsPortal.change_post %}
+                        <a href="{% url 'news_update' pk=post.id %}">Изменить</a>
+                        {% endif %}
+                        {% if perms.NewsPortal.delete_post %}
+                        <a href="{% url 'news_delete' pk=post.id %}">Удалить</a>
+                        {% endif %}
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
 
