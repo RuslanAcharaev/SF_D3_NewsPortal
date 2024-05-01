@@ -12,15 +12,19 @@
 Новости
 {% endblock title %}
 
-<!-- В контенте на странице мы выводим все новости -->
+<!-- В контенте на странице мы выводим все новости данной категории -->
 {% block content %}
-<h1>Все новости</h1>
-<h3><span class="text-muted fs-6 fw-normal">Всего новостей: {{ page_obj.paginator.count }}</span></h3>
+<h1>Новости в категории: {{ Category }}</h1>
+<h3><span class="text-muted fs-6 fw-normal">Новостей в данной категории: {{ page_obj.paginator.count }}</span></h3>
+    {% if is_not_subscriber %}
+        <p class="text-center"><a href="{% url 'subscribe' Category.id %}" class="btn btn-secondary btn-sm">Подписаться на рассылку</a></p>
+    {% else %}
+        <p class="text-center"><a href="{% url 'unsubscribe' Category.id %}" class="btn btn-secondary btn-sm">Отписаться</a></p>
+    {% endif %}
 <hr>
-<!-- Выводим новости, только если они есть с помощью тега if -->
-    {% if posts %}
+    {% if category_posts_list %}
         <ul class="list-group list-group-flush">
-            {% for post in posts %}
+            {% for post in category_posts_list %}
                 <li class="list-group-item">
                     <small class="fw-bold">{{ post.dateCreation | date:'d M Y' }} </small>
                     <a href="{% url 'post_detail' post.id %}">{{ post.title|censor }}</a>
@@ -29,8 +33,7 @@
                             статьи
                         {% else %}
                             новости
-                        {% endif %}
-                        : {{ post.author }}</small> <br>
+                        {% endif %}: {{ post.author }}</small> <br>
                     <small class="fw-bold"> Категории:
                         {% for category in post.postCategory.all %}
                             <a href="{% url 'category_list' category.id %}">{{ category }}</a>
@@ -49,6 +52,7 @@
                 </li>
             {% endfor %}
         </ul>
+
     {% else %}
        <!-- Если новостей нет, говорим, что новостей нет ;) -->
        <h2>Новостей нет!</h2>

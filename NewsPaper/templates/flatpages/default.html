@@ -25,7 +25,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/posts/">Новости</a>
+                            <a class="nav-link" href="/">Новости</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/posts/search/">Поиск</a>
@@ -37,6 +37,11 @@
                                 <a class="dropdown-item" href="/posts/news/create/">Опубликовать новость</a>
                                 <a class="dropdown-item" href="/posts/articles/create/">Опубликовать статью</a>
                             </ul>
+                        </li>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/subscriptions/">Подписки</a>
                         </li>
                         {% endif %}
                     </ul>
@@ -51,7 +56,13 @@
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Авторизация</a>
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {% if user.is_authenticated %}
+                                {{ user.username }}
+                                {% else %}
+                                Авторизация
+                                {% endif %}
+                            </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 {% if user.is_authenticated %}
                                 <li><a class="dropdown-item" href="{% url 'account_logout' %}">Выйти</a></li>
