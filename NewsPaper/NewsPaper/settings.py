@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'NewsPortal',
+    'NewsPortal.apps.NewsportalConfig',
     # подключаем ещё приложения
     'django.contrib.sites',
     'django.contrib.flatpages',
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
+    'django_apscheduler',
 ]
 
 
@@ -158,7 +159,22 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-LOGIN_REDIRECT_URL = "/posts"
-LOGOUT_REDIRECT_URL = "/posts"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 ACCOUNT_FORMS = {"signup": "accounts.forms.CustomSignupForm"}
+
+SITE_URL = 'http://127.0.0.1:8000'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "NewsPortal.notifications"
+EMAIL_HOST_PASSWORD = "gdyjazrlvzhpwfge"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = "NewsPortal.notifications@yandex.ru"
+
+APSCHEDULER_DATETIME_FORMAT = 'N j, y, f:s a'
+
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
