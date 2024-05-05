@@ -7,3 +7,4 @@ class NewsportalConfig(AppConfig):
 
     def ready(self):
         import NewsPortal.signals
+        import NewsPaper.celery
