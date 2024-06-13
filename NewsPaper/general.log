@@ -1,0 +1,19 @@
+2024-06-12 17:40:14,408 INFO autoreload Watching for file changes with StatReloader
+2024-06-12 17:40:18,385 INFO basehttp "GET / HTTP/1.1" 200 11760
+2024-06-12 17:41:59,860 INFO autoreload C:\Users\user\PycharmProjects\DjangoNewsTest\NewsPaper\NewsPaper\settings.py changed, reloading.
+2024-06-12 17:42:00,873 INFO autoreload Watching for file changes with StatReloader
+2024-06-14 00:39:55,219 INFO autoreload Watching for file changes with StatReloader
+2024-06-14 00:40:04,084 INFO basehttp "GET / HTTP/1.1" 200 11760
+2024-06-14 00:40:04,161 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+2024-06-14 00:40:04,456 WARNING basehttp "GET /favicon.ico HTTP/1.1" 404 179
+2024-06-14 00:40:09,479 INFO basehttp "GET / HTTP/1.1" 200 11760
+2024-06-14 00:40:09,502 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+2024-06-14 00:40:10,302 INFO basehttp "GET / HTTP/1.1" 200 11760
+2024-06-14 00:40:10,331 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+2024-06-14 00:40:10,699 INFO basehttp "GET / HTTP/1.1" 200 11760
+2024-06-14 00:40:10,719 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+2024-06-14 00:40:12,595 INFO basehttp "GET / HTTP/1.1" 200 11760
+2024-06-14 00:40:12,616 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+2024-06-14 00:40:41,865 INFO basehttp "GET / HTTP/1.1" 200 11760
+2024-06-14 00:40:41,885 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+2024-06-14 00:40:41,922 INFO autoreload C:\Users\user\PycharmProjects\DjangoNewsTest\NewsPaper\NewsPaper\settings.py changed, reloading.
