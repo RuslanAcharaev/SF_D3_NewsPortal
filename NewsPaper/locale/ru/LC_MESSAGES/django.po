@@ -1,0 +1,61 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-18 23:23+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\NewsPortal\models.py:31
+msgid "category name"
+msgstr "Имя категории"
+
+#: .\NewsPortal\views.py:247
+msgid "Hello world"
+msgstr "Привет мир"
+
+#: .\fpages\admin.py:11
+msgid "Advanced options"
+msgstr "Продвинутые опции"
+
+#: .\templates\flatpages\default.html:30
+msgid "News"
+msgstr "Новости"
+
+#: .\templates\flatpages\default.html:33
+msgid "Search"
+msgstr "Поиск"
+
+#: .\templates\flatpages\default.html:37
+msgid "Publish"
+msgstr "Добавить"
+
+#: .\templates\flatpages\default.html:39
+msgid "Publish the news"
+msgstr "Опубликовать новость"
+
+#: .\templates\flatpages\default.html:40
+msgid "Publish an article"
+msgstr "Опубликовать статью"
+
+#: .\templates\flatpages\default.html:46
+msgid "Subscriptions"
+msgstr "Подписки"
+
+#~ msgctxt "help text for MyModel model"
+#~ msgid "This is the help text"
+#~ msgstr "Это вспомогательный текст"

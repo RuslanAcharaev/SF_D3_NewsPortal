@@ -2,6 +2,8 @@
 # что в этом представлении мы будем выводить список объектов из БД
 from django.core.exceptions import PermissionDenied
 from django.db.models import Exists, OuterRef
+from django.http import HttpResponse
+from django.views import View
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Author, Category, Subscriber
@@ -13,6 +15,9 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.core.cache import cache
+from django.utils.translation import gettext as _
+import pytz  # импортируем стандартный модуль для работы с часовыми поясами
+from django.utils import timezone
 
 
 # Переопределяем миксин PermissionRequiredMixin для проверки авторства
@@ -36,12 +41,20 @@ class PostList(ListView):
     # Его надо указать, чтобы обратиться к списку объектов в html-шаблоне.
     context_object_name = 'posts'
     # Указываем количество записей на странице:
-    paginate_by = 10
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_author'] = self.request.user.groups.filter(name='authors').exists()
+        context['timezones'] = pytz.common_timezones
+        context['current_time'] = timezone.localtime(timezone.now())
         return context
+
+    # по пост-запросу будем добавлять в сессию часовой пояс,
+    # который и будет обрабатываться написанным нами ранее middleware
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/')
 
 
 class PostSearch(ListView):
@@ -75,6 +88,8 @@ class PostSearch(ListView):
         # Добавляем в контекст объект фильтрации.
         context['filterset'] = self.filterset
         context['is_author'] = self.request.user.groups.filter(name='authors').exists()
+        context['timezones'] = pytz.common_timezones
+        context['current_time'] = timezone.localtime(timezone.now())
         return context
 
 
@@ -90,6 +105,8 @@ class PostDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_author'] = self.request.user.groups.filter(name='authors').exists()
+        context['timezones'] = pytz.common_timezones
+        context['current_time'] = timezone.localtime(timezone.now())
         return context
 
     def get_object(self, *args, **kwargs):  # переопределяем метод получения объекта
@@ -126,6 +143,8 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_author'] = self.request.user.groups.filter(name='authors').exists()
+        context['timezones'] = pytz.common_timezones
+        context['current_time'] = timezone.localtime(timezone.now())
         return context
 
 
@@ -149,6 +168,8 @@ class PostUpdate(OwnerPermissionRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_author'] = self.request.user.groups.filter(name='authors').exists()
+        context['timezones'] = pytz.common_timezones
+        context['current_time'] = timezone.localtime(timezone.now())
         return context
 
 
@@ -172,6 +193,8 @@ class PostDelete(OwnerPermissionRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_author'] = self.request.user.groups.filter(name='authors').exists()
+        context['timezones'] = pytz.common_timezones
+        context['current_time'] = timezone.localtime(timezone.now())
         return context
 
 
@@ -203,6 +226,8 @@ class CategoryListView(ListView):
         context['is_not_subscriber'] = self.request.user not in self.Category.subscribers.all()
         context['Category'] = self.Category
         context['is_author'] = self.request.user.groups.filter(name='authors').exists()
+        context['timezones'] = pytz.common_timezones
+        context['current_time'] = timezone.localtime(timezone.now())
         return context
 
 
@@ -216,6 +241,8 @@ class SubscriptionsList(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_author'] = self.request.user.groups.filter(name='authors').exists()
+        context['timezones'] = pytz.common_timezones
+        context['current_time'] = timezone.localtime(timezone.now())
         return context
 
 
@@ -237,3 +264,5 @@ def unsubscribe(request, pk):
 
     message = 'Вы успешно отписались от рассылки публикаций категории '
     return render(request, 'subscribe.html', {'category': category, 'message': message})
+
+

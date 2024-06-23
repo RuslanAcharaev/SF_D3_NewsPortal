@@ -7,6 +7,8 @@
 <!--Импортируем модуль с нашим тегом-->
 {% load custom_tags %}
 
+{% load tz %}
+
 <!-- Название у нас будет Новости -->
 {% block title %}
 Новости
@@ -14,14 +16,16 @@
 
 <!-- В контенте на странице мы выводим все новости -->
 {% block content %}
+
 <h1>Все новости</h1>
 <h3><span class="text-muted fs-6 fw-normal">Всего новостей: {{ page_obj.paginator.count }}</span></h3>
 <hr>
 <!-- Выводим новости, только если они есть с помощью тега if -->
     {% if posts %}
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush bg-transparent">
+
             {% for post in posts %}
-                <li class="list-group-item">
+                <li class="list-group-item bg-transparent">
                     <small class="fw-bold">{{ post.dateCreation | date:'d M Y' }} </small>
                     <a href="{% url 'post_detail' post.id %}">{{ post.title|censor }}</a>
                     <small class="text-muted">Автор

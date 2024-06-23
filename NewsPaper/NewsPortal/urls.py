@@ -10,7 +10,7 @@ urlpatterns = [
    # Т.к. наше объявленное представление является классом,
    # а Django ожидает функцию, нам надо представить этот класс в виде view.
    # Для этого вызываем метод as_view.
-   path('', cache_page(60)(PostList.as_view()), name='post_list'),
+   path('', cache_page(10)(PostList.as_view()), name='post_list'),
    # pk — это первичный ключ новости, которая будет выводиться у нас в шаблон
    # int — указывает на то, что принимаются только целочисленные значения
    path('posts/<int:pk>', PostDetail.as_view(), name='post_detail'),

@@ -1,0 +1,134 @@
+openapi: 3.0.2
+info:
+  title: Портал новостей OpenApi спецификация
+  version: 0.0.1
+servers:
+  - url: http://127.0.0.1:8000/
+    description: ''
+paths:
+  /api/:
+    get:
+      summary: Метод получения новостей
+      tags:
+        - news
+      operationId: getAllNews
+      responses:
+        '200':
+          description: Успешный ответ со списком новостей
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/News"
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Метод создания новости
+      tags:
+        - news
+      operationId: createNew
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/New"
+      responses:
+        '201':
+          description: Успешный ответ с одной новостью
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/New"
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/posts/{id}:
+    get:
+      summary: Метод получения новости по идентификатору
+      tags:
+        - news
+      operationId: getNewById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Идентификатор новости
+          schema:
+            type: string
+          example: 123
+      responses:
+        '200':
+          description: Успешный ответ с одной новостью
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/New"
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Метод удаления новости по идентификатору
+      tags:
+        - news
+      operationId: deleteNewById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Идентификатор новости
+          schema:
+            type: string
+          example: 123
+      responses:
+        '204':
+          description: Нет контента (Успешное удаление)
+          content:
+            application/json: {}
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    New:
+      type: object
+      required:
+        - pk
+        - title
+        - text
+      properties:
+        pk:
+          type: string
+          example: 123
+        title:
+          type: string
+          description: Заголовок новости
+        text:
+          type: string
+          description: Текст новости
+    News:
+      type: array
+      items:
+        $ref: "#/components/schemas/New"
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
